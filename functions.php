@@ -1093,7 +1093,7 @@
 							curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 							curl_setopt($ch, CURLOPT_POST, 1);
 							curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-							curl_setopt($ch, CURLOPT_USERPWD, 'MAYTVIODG2ZDY1MMYZYW' . ':' . 'MmVlYWViZmU2MGM5Y2I1ODc0MzQxZGYwMDlkOTBh');
+							curl_setopt($ch, CURLOPT_USERPWD, '1' . ':' . '1');
 							$headers = array();
 							$headers[] = 'Content-Type: application/json';
 							curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
