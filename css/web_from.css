@@ -1,0 +1,22 @@
+.nmBackground{
+	padding-top:0px !important;	
+}
+.modal-content{
+	min-height:425px;
+	overflow:auto;
+}
+.setting-1{
+    position: inherit;
+}
+.display-1{
+    display: block;
+}
+.display-2{
+    display: block !important;
+}
+.setting-2{
+    font-size:11px;
+}
+.display-3{
+    display: none;
+}
