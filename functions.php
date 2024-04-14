@@ -1076,57 +1076,6 @@
 							}
 						}
 					}
-					else if ($adminSettings['sms_gateway']=='plivo') {
-						require_once("plivo/vendor/autoload.php");
-						require_once("plivo/vendor/plivo/plivo-php/plivo.php");
-						if (trim($media) != '') {
-							$data ='
-									{
-									"src": "'.$from.'",
-									"dst": "'.$to.'", 
-									"text": "'.$body.'",
-									"type":"mms",
-									"media_urls":["'.$media.'"]
-								}';
-							$ch = curl_init();
-							curl_setopt($ch, CURLOPT_URL, 'https://api.plivo.com/v1/Account/MAYTVIODG2ZDY1MMYZYW/Message/');
-							curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-							curl_setopt($ch, CURLOPT_POST, 1);
-							curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-							curl_setopt($ch, CURLOPT_USERPWD, '1' . ':' . '1');
-							$headers = array();
-							$headers[] = 'Content-Type: application/json';
-							curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-							$result = curl_exec($ch);
-							if (curl_errno($ch)) {
-								echo 'Error:' . curl_error($ch);
-							}
-							curl_close($ch);
-							$result = json_decode($result,true);
-							if( $result['error']) {
-								$smsSid = $result['error'];
-							}else{
-								$smsSid = $result['message_uuid'][0];
-								$isSent = 'true';
-							}
-							$msgType = 'mms';
-						} else {
-							$params = array(
-								'src' => $from,
-								'dst' => $to,
-								'text' => $body
-							);
-							$msgType = 'sms';
-							$p = new RestAPI($adminSettings['plivo_auth_id'], $adminSettings['plivo_auth_token']);
-							$response = $p->send_message($params);
-							if ($response['status'] == '202') {
-								$smsSid = $response['response']['message_uuid'][0];
-								$isSent = 'true';
-							} else {
-								$smsSid = $response['response']['error'];
-							}
-						}
-					}
 					else if($adminSettings['sms_gateway']=='nexmo'){
 						$url = 'https://rest.nexmo.com/sms/json?' . http_build_query(array(
 								'api_key' =>  $adminSettings['nexmo_api_key'],
